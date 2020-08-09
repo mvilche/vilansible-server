@@ -1,0 +1,40 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+
+<div class="jumbotron">
+{{if not .t}}
+<h3>No Ansible executions</h3>
+{{else}}
+<div class="container">
+<table class="table table-hover">
+  <thead>
+    <tr class="table-primary">
+      <th scope="row">Application</th>
+      <th scope="row">Version</th>
+      <th scope="row">Type</th>
+      <th scope="row">Date</th>
+      <th scope="row">User execution</th>
+      <th scope="row">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range $index, $element := .t}}
+    <tr class="table-light">
+      <td>{{$element.Application}}</td>
+      <td>{{$element.Version}}</td>
+      <td>{{$element.TypeExec}}</td>
+      <td>{{$element.Date}}</td>
+      <td>{{$element.User}}</td>
+      {{ if not $element.Status }}
+      <td><span class="badge badge-danger">Failed</span></td>
+      {{else}}
+      <td><span class="badge badge-success">Success</span></td>
+      {{end}}
+      </tr>
+    {{end}}
+  </tbody>
+</table>
+</div>
+{{end}} 
+</div>
+{{template "footer.html" .}}
